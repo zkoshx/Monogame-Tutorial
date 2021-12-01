@@ -22,12 +22,13 @@ namespace Learning_Monogame
         MouseState mState;
         bool mReleased = true;
         int score = 0;
+        int time = 0;
 
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            IsMouseVisible = true;
+            IsMouseVisible = false;
         }
 
         protected override void Initialize()
@@ -62,6 +63,8 @@ namespace Learning_Monogame
                 {
                     score++;
                     Random rnd = new Random();
+                    targetPos.X = rnd.Next(0, _graphics.PreferredBackBufferWidth);
+                    targetPos.Y = rnd.Next(0, _graphics.PreferredBackBufferHeight);
                 }
                 mReleased = false;
             }
@@ -82,6 +85,7 @@ namespace Learning_Monogame
             _spriteBatch.Draw(bgSprite, new Vector2(0, 0), Color.White);
             _spriteBatch.DrawString(gameFont, score.ToString(), new Vector2(100,0), Color.Blue);
             _spriteBatch.Draw(targetSprite, new Vector2(targetPos.X - rad, targetPos.Y - rad), Color.White);
+            _spriteBatch.Draw(crosshairSprite, new Vector2(mState.X - 25, mState.Y - 25), Color.White);
             _spriteBatch.End();
 
             base.Draw(gameTime);
